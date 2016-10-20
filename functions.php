@@ -47,7 +47,7 @@ if ( ! function_exists( 'blogify_setup' ) ):
 
 		/** Load functions */
 		require( get_template_directory() . '/library/functions/functions.php' );
-
+		require( get_template_directory() . '/library/admin/blogify-themeoptions-defaults.php' );
 		/** Load WP backend related functions */
 		require( get_template_directory() . '/library/panel/themeoptions-defaults.php' );
 		require( get_template_directory() . '/library/panel/metaboxes.php' );

@@ -3,25 +3,46 @@
  * Add block to WordPress theme customizer
  * @package blogify
  */
+
+ 
+
 function blogify_options_register_theme_customizer($wp_customize)
 {
     require_once(trailingslashit(get_template_directory()) . '/library/panel/blogify-custom-control.php');
 
     global $blogify_theme_options_settings, $blogify_theme_options_defaults;
-    $options = get_option('blogify_theme_options');
+    $options = get_option('blogify_theme_options'); 
 
-    /* Main option Settings Panel */
+    /******************** Panels ******************************************/
+    /*  */
     $wp_customize->add_panel('blogify_main_options', array(
         'capability' => 'edit_theme_options',
         'theme_supports' => '',
-        'title' => __('blogify Main Options', 'blogify'),
+        'title' => __('Main Options', 'blogify'),
         'description' => __('Panel to update blogify theme options', 'blogify'), // Include html tags such as <p>.
         'priority' => 10 // Mixed with top-level-section hierarchy.
     ));
 
-    /* blogify Header Area */
+
+    $wp_customize->add_panel('blogify_slider_options', array(
+        'capability' => 'edit_theme_options',
+        'theme_supports' => '',
+        'title' => __('Featured Slider', 'blogify'),
+        'description' => __('Panel to update blogify theme options', 'blogify'), // Include html tags such as <p>.
+        'priority' => 15 // Mixed with top-level-section hierarchy.
+    ));
+
+    $wp_customize->add_panel('blogify_front_page_options', array(
+        'capability' => 'edit_theme_options',
+        'theme_supports' => '',
+        'title' => __('Front page options', 'blogify'),
+        'description' => __('Panel to update theme options related to the front page', 'blogify'), // Include html tags such as <p>.
+        'priority' => 15 // Mixed with top-level-section hierarchy.
+    ));
+    /******************** Header Area ******************************************/
+    /*   */
     $wp_customize->add_section('blogify_menu_options', array(
-        'title' => __('blogify Header Area', 'blogify'),
+        'title' => __('Header Area', 'blogify'),
         'description' => sprintf(__('Use the following settings change color for menu and website title', 'blogify')),
         'priority' => 31,
         'panel' => 'blogify_main_options'
@@ -89,10 +110,10 @@ function blogify_options_register_theme_customizer($wp_customize)
             'settings' => 'blogify_social_color',
             'priority' => 13
         )));
-
-    /* blogify Element Color */
+    /******************** Element Color ******************************************/
+    /*   */
     $wp_customize->add_section('blogify_element_options', array(
-        'title' => __('blogify Element Color', 'blogify'),
+        'title' => __('Element Color', 'blogify'),
         'description' => sprintf(__('Use the following settings change color for website elements', 'blogify')),
         'priority' => 32,
         'panel' => 'blogify_main_options'
@@ -140,10 +161,10 @@ function blogify_options_register_theme_customizer($wp_customize)
             'settings' => 'blogify_content_bg_color',
             'priority' => 7
         )));
-
-    /* blogify Typography Color */
+    /******************** Typography Color ******************************************/
+    /*  */
     $wp_customize->add_section('blogify_typography_options', array(
-        'title' => __('blogify Typography Color', 'blogify'),
+        'title' => __('Typography Color', 'blogify'),
         'description' => sprintf(__('Use the following settings change color for typography such as links, headings and content', 'blogify')),
         'priority' => 33,
         'panel' => 'blogify_main_options'
@@ -190,10 +211,10 @@ function blogify_options_register_theme_customizer($wp_customize)
             'settings' => 'blogify_link_hover_color',
             'priority' => 12
         )));
-
-    /* blogify Footer Section */
+    /******************** Footer Section ******************************************/
+    /*   */
     $wp_customize->add_section('blogify_footer_options', array(
-        'title' => __('blogify Footer', 'blogify'),
+        'title' => __('Footer', 'blogify'),
         'description' => sprintf(__('Use the following settings customize Footer', 'blogify')),
         'priority' => 34,
         'panel' => 'blogify_main_options'
@@ -207,8 +228,8 @@ function blogify_options_register_theme_customizer($wp_customize)
             'section' => 'blogify_footer_options',
             'type' => 'text'
         ));
-
-    /* Header Options */
+    /********************  Header Options ******************************************/
+    /*  */
     $wp_customize->add_section('blogify_header_options', array(
         'priority' => 10,
         'capability' => 'edit_theme_options',
@@ -245,8 +266,8 @@ function blogify_options_register_theme_customizer($wp_customize)
                 'disable-both' => __('Disable', 'blogify')
             )
         ));
-
-    /* Layout Options */
+    /********************  Layout Options ******************************************/
+    /*  */
     $wp_customize->add_section('blogify_layout_options', array(
         'priority' => 30,
         'capability' => 'edit_theme_options',
@@ -287,8 +308,8 @@ function blogify_options_register_theme_customizer($wp_customize)
             'type' => 'checkbox',
             'settings' => 'blogify_theme_options[reset_layout]'
         ));
-
-    /* RSS URL */
+    /********************  RSS URL ******************************************/
+    /* */
     $wp_customize->add_section('blogify_rss_options', array(
         'priority' => 50,
         'capability' => 'edit_theme_options',
@@ -329,15 +350,96 @@ function blogify_options_register_theme_customizer($wp_customize)
             'priority' => 10,
             'type' => 'multi-select-cat'
         )));
-
-    /* Featured Slider Settings Panel */
-    $wp_customize->add_panel('blogify_slider_options', array(
-        'capability' => 'edit_theme_options',
-        'theme_supports' => '',
-        'title' => __('blogify Featured Slider', 'blogify'),
-        'description' => __('Panel to update blogify theme options', 'blogify'), // Include html tags such as <p>.
-        'priority' => 15 // Mixed with top-level-section hierarchy.
+    /******************** Home Slogan Options ******************************************/
+    $wp_customize->add_section('home_slogan_options', array(
+        'title'                 => __('Home Slogan Options', 'blogify'),
+        'priority'              => 300,
+        'panel'                 =>'blogify_front_page_options'
     ));
+    $wp_customize->add_setting( 'blogify_theme_options[disable_slogan]', array(
+        'default'               => '0',
+        'sanitize_callback' => 'prefix_sanitize_integer',
+        'type'                  => 'option',
+        'capability'            => 'manage_options'
+    ));
+    $wp_customize->add_control( 'home_slogan_options', array(
+        'label'                 => __('Disable Slogan Part', 'blogify'),
+        'section'               => 'home_slogan_options',
+        'settings'              => 'blogify_theme_options[disable_slogan]',
+        'type'                  => 'checkbox',
+    ));
+    $wp_customize->add_setting('blogify_theme_options[slogan_position]', array(
+        'default'               => 'below-slider',
+        'sanitize_callback' => 'prefix_sanitize_integer',
+        'type'                  => 'option',
+        'capability'            => 'manage_options'
+    ));
+    $wp_customize->add_control('blogify_design_layout', array(
+        'label'                 => __('Slogan Position', 'blogify'),
+        'section'               => 'home_slogan_options',
+        'settings'              => 'blogify_theme_options[slogan_position]',
+        'type'                  => 'radio',
+        'checked'               => 'checked',
+        'choices'               => array(
+            'below-slider'                  => __('Below Slider','blogify'),
+            'above-slider'                  => __('Above Slider','blogify'),
+        ),
+    ));
+    $wp_customize->add_setting( 'blogify_theme_options[home_slogan1]', array(
+        'default'               => '',
+        'type'                  => 'option',
+        'capability'            => 'manage_options',
+        'sanitize_callback' => 'esc_textarea'
+    ));
+    $wp_customize->add_control( 'home_slogan1', array(
+        'label'                 => __('Home Page Slogan1', 'blogify'),
+        'description'           => __('The appropriate length of the slogan is around 10 words.','blogify'),
+        'section'               => 'home_slogan_options',
+        'settings'              => 'blogify_theme_options[home_slogan1]',
+        'type'                  => 'textarea'
+    ));
+    $wp_customize->add_setting( 'blogify_theme_options[home_slogan2]', array(
+        'default'               => '',
+        'type'                  => 'option',
+        'capability'            => 'manage_options',
+        'sanitize_callback' => 'esc_textarea'
+    ));
+    $wp_customize->add_control( 'home_slogan2', array(
+        'label'                 => __('Home Page Slogan2', 'blogify'),
+        'description'           => __('The appropriate length of the slogan is around 10 words.','blogify'),
+        'section'               => 'home_slogan_options',
+        'settings'              => 'blogify_theme_options[home_slogan2]',
+        'type'                  => 'textarea'
+    ));
+    $wp_customize->add_setting('blogify_theme_options[button_text]', array(
+        'default'                   =>'',
+        'sanitize_callback'     => 'sanitize_text_field',
+        'type'                      => 'option',
+        'capability'                => 'manage_options'
+    ));
+    $wp_customize->add_control('button_text', array(
+        'label'                     => __('Redirect Button Text', 'blogify'),
+        'description'           => __('Text to show in Button','blogify'),
+        'section'                   => 'home_slogan_options',
+        'settings'                  => 'blogify_theme_options[button_text]',
+        'type'                      => 'text',
+    ));
+    $wp_customize->add_setting('blogify_theme_options[redirect_button_link]', array(
+        'default'                   =>'',
+        'sanitize_callback'     => 'esc_url_raw',
+        'type'                      => 'option',
+        'capability'                => 'manage_options'
+    ));
+    $wp_customize->add_control('redirect_button_link', array(
+        'label'                     => __('Redirect Button Link', 'blogify'),
+        'description'           => __('Link this button to show your special work, portfolio','blogify'),
+        'section'                   => 'home_slogan_options',
+        'settings'                  => 'blogify_theme_options[redirect_button_link]',
+        'type'                      => 'text',
+    ));
+    /******************** Featured Slider Settings Panel Options ******************************************/
+    /*  */
+
     $wp_customize->add_section('blogify_post_slider_options', array(
         'priority' => 60,
         'capability' => 'edit_theme_options',
@@ -442,13 +544,13 @@ function blogify_options_register_theme_customizer($wp_customize)
             'label' => __('Transition length (in second(s))', 'blogify'),
             'section' => 'blogify_slide_effect_options',
         ));
-
-    /* Social Links Settings Panel */
+    /******************** Social Links Settings Panel ******************************************/
+    /*  */
     $wp_customize->add_section('blogify_social_url_options', array(
         'priority' => 17,
         'capability' => 'edit_theme_options',
         'theme_supports' => '',
-        'title' => __('blogify Social Links', 'blogify'),
+        'title' => __('Social Links', 'blogify'),
         'description' => __('Enter URLs for your social networks e.g.', 'blogify') . 'https://twitter.com/Invendio'
     ));
 
@@ -469,13 +571,13 @@ function blogify_options_register_theme_customizer($wp_customize)
                 'type' => 'text'
             ));
         }
-
-    /* Other options Section */
+    /******************** Other options Section ******************************************/
+    /*  */
     $wp_customize->add_section('blogify_others_options', array(
         'priority' => 19,
         'capability' => 'edit_theme_options',
         'theme_supports' => '',
-        'title' => __('blogify Other Options', 'blogify'),
+        'title' => __('Other Options', 'blogify'),
         'description' => __('Enter your custom CSS styles.', 'blogify')
     ));
         $wp_customize->add_setting('blogify_theme_options[custom_css]', array(
@@ -495,7 +597,7 @@ function blogify_options_register_theme_customizer($wp_customize)
         'priority' => 6,
         'capability' => 'edit_theme_options',
         'theme_supports' => '',
-        'title' => __('blogify Important Links', 'blogify'),
+        'title' => __('Important Links', 'blogify'),
     ));
         $wp_customize->add_setting('blogify_theme_options[imp_links]', array(
           'capability' => 'edit_theme_options',
@@ -522,6 +624,12 @@ function blogify_options_register_theme_customizer($wp_customize)
     $wp_customize->get_setting('blogify_theme_options[header_show]')->transport  = 'postMessage';
     $wp_customize->get_setting('blogify_theme_options[default_layout]')->transport  = 'postMessage';
 }
+
+/********************Sanitize the values ******************************************/
+function prefix_sanitize_integer( $input ) {
+    return $input;
+}
+ 
 
 /**
  * Adds sanitization callback function: colors
