@@ -60,3 +60,6 @@ Unless otherwise specified, all the theme files, scripts and images are licensed
 **= 1.1 =**
 - Shortcodes added
 
+**= 1.2 =**
+- Slogan on front page added
+
