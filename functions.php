@@ -36,7 +36,7 @@ if ( ! function_exists( 'blogify_setup' ) ):
 		 */
 		do_action( 'blogify_add_files' );
 
-		/*Blogify now support shortcodes*/
+
 
 
 		/* blogify is now available for translation. */
@@ -49,7 +49,8 @@ if ( ! function_exists( 'blogify_setup' ) ):
 		require( get_template_directory() . '/library/panel/themeoptions-defaults.php' );
 		require( get_template_directory() . '/library/panel/metaboxes.php' );
 		require( get_template_directory() . '/library/panel/show-post-id.php' );
-
+		require(trailingslashit(get_template_directory()) . '/library/panel/blogify-custom-control.php');
+		
 		/** Load Shortcodes */
 		require( get_template_directory() . '/library/functions/shortcodes.php' );
 

@@ -8,7 +8,7 @@
 
 function blogify_options_register_theme_customizer($wp_customize)
 {
-    require_once(trailingslashit(get_template_directory()) . '/library/panel/blogify-custom-control.php');
+    
 
     global $blogify_theme_options_settings, $blogify_theme_options_defaults;
     $options = get_option('blogify_theme_options'); 
