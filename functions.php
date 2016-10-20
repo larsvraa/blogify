@@ -38,10 +38,7 @@ if ( ! function_exists( 'blogify_setup' ) ):
 
 		/*Blogify now support shortcodes*/
 
-		if ( !function_exists( 'gpp_button_shortcode' ) ) {
-			require( get_template_directory() . '/library/tw-shortcodes/tw-shortcodes.php' );
 
-		}
 		/* blogify is now available for translation. */
 		require( get_template_directory() . '/library/functions/i18n.php' );
 
