@@ -63,6 +63,8 @@ function blogify_scripts_styles_method() {
 		wp_enqueue_script( 'html5', get_template_directory_uri() . '/library/js/html5.js', true );
 	}
 
+
+
 }
 
 /****************************************************************************************/
@@ -188,6 +190,7 @@ function blogify_body_class( $classes ) {
 	if( is_page_template( 'page-blog-medium-image.php' ) ) {
 		$classes[] = 'blog-medium';
 	}
+
 
 	return $classes;
 }

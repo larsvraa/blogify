@@ -351,92 +351,98 @@ function blogify_options_register_theme_customizer($wp_customize)
             'type' => 'multi-select-cat'
         )));
     /******************** Home Slogan Options ******************************************/
-    $wp_customize->add_section('home_slogan_options', array(
-        'title'                 => __('Home Slogan Options', 'blogify'),
-        'priority'              => 300,
-        'panel'                 =>'blogify_front_page_options'
-    ));
-    $wp_customize->add_setting( 'blogify_theme_options[disable_slogan]', array(
-        'default'               => '0',
-        'sanitize_callback' => 'prefix_sanitize_integer',
-        'type'                  => 'option',
-        'capability'            => 'manage_options'
-    ));
-    $wp_customize->add_control( 'home_slogan_options', array(
-        'label'                 => __('Disable Slogan Part', 'blogify'),
-        'section'               => 'home_slogan_options',
-        'settings'              => 'blogify_theme_options[disable_slogan]',
-        'type'                  => 'checkbox',
-    ));
-    $wp_customize->add_setting('blogify_theme_options[slogan_position]', array(
-        'default'               => 'below-slider',
-        'sanitize_callback' => 'prefix_sanitize_integer',
-        'type'                  => 'option',
-        'capability'            => 'manage_options'
-    ));
-    $wp_customize->add_control('blogify_design_layout', array(
-        'label'                 => __('Slogan Position', 'blogify'),
-        'section'               => 'home_slogan_options',
-        'settings'              => 'blogify_theme_options[slogan_position]',
-        'type'                  => 'radio',
-        'checked'               => 'checked',
-        'choices'               => array(
-            'below-slider'                  => __('Below Slider','blogify'),
-            'above-slider'                  => __('Above Slider','blogify'),
-        ),
-    ));
-    $wp_customize->add_setting( 'blogify_theme_options[home_slogan1]', array(
-        'default'               => '',
-        'type'                  => 'option',
-        'capability'            => 'manage_options',
-        'sanitize_callback' => 'esc_textarea'
-    ));
-    $wp_customize->add_control( 'home_slogan1', array(
-        'label'                 => __('Home Page Slogan1', 'blogify'),
-        'description'           => __('The appropriate length of the slogan is around 10 words.','blogify'),
-        'section'               => 'home_slogan_options',
-        'settings'              => 'blogify_theme_options[home_slogan1]',
-        'type'                  => 'textarea'
-    ));
-    $wp_customize->add_setting( 'blogify_theme_options[home_slogan2]', array(
-        'default'               => '',
-        'type'                  => 'option',
-        'capability'            => 'manage_options',
-        'sanitize_callback' => 'esc_textarea'
-    ));
-    $wp_customize->add_control( 'home_slogan2', array(
-        'label'                 => __('Home Page Slogan2', 'blogify'),
-        'description'           => __('The appropriate length of the slogan is around 10 words.','blogify'),
-        'section'               => 'home_slogan_options',
-        'settings'              => 'blogify_theme_options[home_slogan2]',
-        'type'                  => 'textarea'
-    ));
-    $wp_customize->add_setting('blogify_theme_options[button_text]', array(
-        'default'                   =>'',
-        'sanitize_callback'     => 'sanitize_text_field',
-        'type'                      => 'option',
-        'capability'                => 'manage_options'
-    ));
-    $wp_customize->add_control('button_text', array(
-        'label'                     => __('Redirect Button Text', 'blogify'),
-        'description'           => __('Text to show in Button','blogify'),
-        'section'                   => 'home_slogan_options',
-        'settings'                  => 'blogify_theme_options[button_text]',
-        'type'                      => 'text',
-    ));
-    $wp_customize->add_setting('blogify_theme_options[redirect_button_link]', array(
-        'default'                   =>'',
-        'sanitize_callback'     => 'esc_url_raw',
-        'type'                      => 'option',
-        'capability'                => 'manage_options'
-    ));
-    $wp_customize->add_control('redirect_button_link', array(
-        'label'                     => __('Redirect Button Link', 'blogify'),
-        'description'           => __('Link this button to show your special work, portfolio','blogify'),
-        'section'                   => 'home_slogan_options',
-        'settings'                  => 'blogify_theme_options[redirect_button_link]',
-        'type'                      => 'text',
-    ));
+
+        $wp_customize->add_section('blogify_action_options', array(
+            'title' => __('Action Button', 'blogify'),
+            'priority' => 31,
+            'panel' => 'blogify_front_page_options'
+        ));
+        $wp_customize->add_setting('blogify[w2f_cfa_text]', array(
+            'default' => '',
+            'type' => 'option',
+            'sanitize_callback' => 'blogify_sanitize_strip_slashes'
+        ));
+        $wp_customize->add_control('blogify[w2f_cfa_text]', array(
+            'label' => __('Call For Action Text', 'blogify'),
+            'description' => sprintf(__('Enter the text for call for action section', 'blogify')),
+            'section' => 'blogify_action_options',
+            'type' => 'textarea'
+        ));
+
+        $wp_customize->add_setting('blogify[w2f_cfa_button]', array(
+            'default' => '',
+            'type' => 'option',
+            'sanitize_callback' => 'blogify_sanitize_nohtml'
+        ));
+        $wp_customize->add_control('blogify[w2f_cfa_button]', array(
+            'label' => __('Call For Action Button Title', 'blogify'),
+            'section' => 'blogify_action_options',
+            'description' => __('Enter the title for Call For Action button', 'blogify'),
+            'type' => 'text'
+        ));
+
+        $wp_customize->add_setting('blogify[w2f_cfa_link]', array(
+            'default' => '',
+            'type' => 'option',
+            'sanitize_callback' => 'esc_url_raw'
+        ));
+        $wp_customize->add_control('blogify[w2f_cfa_link]', array(
+            'label' => __('CFA button link', 'blogify'),
+            'section' => 'blogify_action_options',
+            'description' => __('Enter the link for Call For Action button', 'blogify'),
+            'type' => 'text'
+        ));
+
+        $wp_customize->add_setting('blogify[cfa_color]', array(
+            'default' => '',
+            'type'  => 'option',
+            'sanitize_callback' => 'blogify_sanitize_hexcolor'
+        ));
+        $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'blogify[cfa_color]', array(
+            'label' => __('Call For Action Text Color', 'blogify'),
+            'description'   => __('Default used if no color is selected','blogify'),
+            'section' => 'blogify_action_options',
+        )));
+        $wp_customize->add_setting('blogify[cfa_bg_color]', array(
+            'default' => '',
+            'type'  => 'option',
+            'sanitize_callback' => 'blogify_sanitize_hexcolor'
+        ));
+        $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'blogify[cfa_bg_color]', array(
+            'label' => __('Call For Action Background Color', 'blogify'),
+            'description'   => __('Default used if no color is selected','blogify'),
+            'section' => 'blogify_action_options',
+        )));
+        $wp_customize->add_setting('blogify[cfa_btn_color]', array(
+            'default' => '',
+            'type'  => 'option',
+            'sanitize_callback' => 'blogify_sanitize_hexcolor'
+        ));
+        $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'blogify[cfa_btn_color]', array(
+            'label' => __('Call For Action Button Border Color', 'blogify'),
+            'description'   => __('Default used if no color is selected','blogify'),
+            'section' => 'blogify_action_options',
+        )));
+        $wp_customize->add_setting('blogify[cfa_btn_txt_color]', array(
+            'default' => '',
+            'type'  => 'option',
+            'sanitize_callback' => 'blogify_sanitize_hexcolor'
+        ));
+        $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'blogify[cfa_btn_txt_color]', array(
+            'label' => __('Call For Action Button Text Color', 'blogify'),
+            'description'   => __('Default used if no color is selected','blogify'),
+            'section' => 'blogify_action_options',
+        )));            
+        $wp_customize->add_setting('blogify[cfa_btn_back_color]', array(
+            'default' => '',
+            'type'  => 'option',
+            'sanitize_callback' => 'blogify_sanitize_hexcolor'
+        ));
+        $wp_customize->add_control(new WP_Customize_Color_Control($wp_customize, 'blogify[cfa_btn_back_color]', array(
+            'label' => __('Call For Action Button Background Color', 'blogify'),
+            'description'   => __('Default used if no color is selected','blogify'),
+            'section' => 'blogify_action_options',
+        )));
     /******************** Featured Slider Settings Panel Options ******************************************/
     /*  */
 
@@ -764,6 +770,20 @@ function blogify_customizer_css() {
         blockquote { border-color: <?php echo get_theme_mod('blogify_element_color', '#444'); ?>; }
         #controllers a:hover, #controllers a.active { color: <?php echo get_theme_mod('blogify_element_color', ' #444'); ?>; }
         input[type="reset"]:hover,input[type="button"]:hover,input[type="submit"]:hover,input[type="reset"]:active,input[type="button"]:active,input[type="submit"]:active, .entry-meta-bar .readmore:hover, .entry-meta-bar .readmore:active, ul.default-wp-page li a:hover, ul.default-wp-page li a:active { background: <?php echo get_theme_mod('blogify_element_hover_color', '#444'); ?>; border-color: <?php echo get_theme_mod('blogify_element_hover_color', '#444'); ?>; }
+    <?php
+  if ( of_get_option('cfa_bg_color')) {
+  echo '.cfa { background-color: '.of_get_option('cfa_bg_color').'; } .cfa-button:hover a {color: '.of_get_option('cfa_bg_color').';}';
+  }
+  if ( of_get_option('cfa_bg_color')) {
+  echo '.cfa-button { background-color: '.of_get_option('cfa_btn_back_color').'; }';
+  }      
+  if ( of_get_option('cfa_color')) {
+  echo '.cfa-text { color: '.of_get_option('cfa_color').';}';
+  }
+  if ( of_get_option('cfa_btn_color') || of_get_option('cfa_btn_txt_color') ) {
+    echo '.cfa-button {border-color: '.of_get_option('cfa_btn_color').'; color: '.of_get_option('cfa_btn_txt_color').';}'; 
+  }
+?>
     </style>
     <?php
 }

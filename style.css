@@ -781,64 +781,43 @@ a.more-link:hover {
   display: none;
 }
 
-/* Slogan */
-.slogan-wrap {	
-	font-family: 'Philosopher', sans-serif;
-	background-color: #05a9c5;	
-	padding: 24px 0;
-	margin-bottom: 4px;	
+/* =Call For Action
+----------------------------------------------- */
+.cfa {
+  padding: 30px 0px;
+  background: #FFF;
+  border-bottom: 1px solid #DADADA;
+  text-align: center;
 }
-.slogan-wrap .slogan {
-	font-size: 24px;	
-	line-height: 30px;
-	color: #fff;
-	width: 80%;
-	float: left;
+.cfa-text{
+  font-size: 22px;
+  color: #3CA2A2;
+  display: block;
+  padding-top: 10px;
 }
-.slogan-wrap .slogan span {
-	font: 13px 'PT Sans', sans-serif;
-	line-height: 20px;
-	display: block;
-	padding-top: 5px;
+.cfa-button {
+  background-color: transparent;
+  color: #3CA2A2;
+  padding: 15px 30px;
+  border-color: #3CA2A2;
 }
-.slogan-wrap .view-work {
-	color: #494949;
-	font-size: 18px;	
-	float: right;
-	display: block;
-	border: 2px solid #fff;
-	text-align: center;
-	height: 28px;
-	padding: 8px 15px 0;
-	margin-top: 8px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;	
-   background: #b5e6ee;
-	background: -webkit-linear-gradient(#d0eef4, #b5e6ee);
-	background: -moz-linear-gradient(#d0eef4, #b5e6ee);
-	background: -ms-linear-gradient(#d0eef4, #b5e6ee);
-	background: -o-linear-gradient(#d0eef4, #b5e6ee);
-	background: -webkit-gradient(#d0eef4, #b5e6ee);
-	background: linear-gradient(#d0eef4, #b5e6ee);
-	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);	
-	text-shadow:0 1px 0 rgba(251, 251, 251, 0.7)
+.cfa-button a {
+  color: #3CA2A2;
 }
-.slogan-wrap .view-work:hover {
-	background: -webkit-linear-gradient(#E3F5F9, #b5e6ee);
-	background: -moz-linear-gradient(#E3F5F9, #b5e6ee);
-	background: -ms-linear-gradient(#E3F5F9, #b5e6ee);
-	background: -o-linear-gradient(#E3F5F9, #b5e6ee);
-	background: -webkit-gradient(#E3F5F9, #b5e6ee);
-	background: linear-gradient(#E3F5F9, #b5e6ee);
+.cfa-button:hover {
+  background-color: #3CA2A2;
+  color: #fff;
 }
-.slogan-wrap .view-work:active {
-	-webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-	-moz-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+@media (max-width: 767px) {
+  .cfa {
+    padding: 0 0 20px;
+  }
+  .cfa-button {
+    padding: 10px 16px;
+    margin-top: 10px;
+  }
 }
+
 
 /* =Featured Slider
 --------------------------------------------------------------*/

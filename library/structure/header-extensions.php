@@ -145,20 +145,15 @@ function blogify_headerdetails() {
 			}
 
 
-			if( 'above-slider' == $options[ 'slogan_position' ] ) 
-				if( function_exists( 'blogify_home_slogan' ) ){
-					blogify_home_slogan(); 
-			}
+ 
 
    			if( function_exists( 'blogify_featured_post_slider' ) )
    				blogify_featured_post_slider();
-   			}
 
-			if( 'below-slider' == $options[ 'slogan_position' ] ) {
-				if( function_exists( 'blogify_home_slogan' ) ){
-					blogify_home_slogan(); 
-				}
-			}
+			slimpy_call_for_action();
+   		}
+
+
 
 		else {
 			if( ( '' != blogify_header_title() ) || function_exists( 'bcn_display_list' ) ) {
@@ -178,40 +173,8 @@ function blogify_headerdetails() {
 }
 
 
-/****************************************************************************************/
-
-if ( ! function_exists( 'blogify_home_slogan' ) ) :
-/**
- * Display Home Slogan.
- *
- * Function that enable/disable the home slogan1 and home slogan2.
- */
-function blogify_home_slogan() {	
-	global $options, $array_of_default_settings;
-	$options = wp_parse_args( get_option( 'blogify_theme_options', array() ), blogify_get_option_defaults());// $blogify_theme_options_settings;
-	
-	$blogify_home_slogan = '';
-	if(( !empty( $options[ 'home_slogan1' ] ) || !empty( $options[ 'home_slogan2' ] ) ) ) {
-      			
-		if ( 1 != $options[ 'disable_slogan' ] ) {
-			$blogify_home_slogan .= '<section class="slogan-wrap clearfix"><div class="container"><div class="slogan">';
-			if ( !empty( $options[ 'home_slogan1' ] ) ) {
-				$blogify_home_slogan .= esc_html( $options[ 'home_slogan1' ] );
-			}
-			if ( !empty( $options[ 'home_slogan2' ] ) ) {
-				$blogify_home_slogan .= '<span>'.esc_html( $options[ 'home_slogan2' ] ).'</span>';
-			}
-			$blogify_home_slogan .= '</div><!-- .slogan -->';
-			if ( !empty( $options[ 'button_text' ] ) && !empty( $options[ 'redirect_button_link' ] ) ) {
-				$blogify_home_slogan .= '<a class="view-work" href="'.esc_url( $options[ 'redirect_button_link' ] ).'" title="'.esc_attr( $options[ 'button_text' ] ).'">'.esc_html( $options[ 'button_text' ] ).'</a><!-- .view-work -->';
-			}
-			$blogify_home_slogan .= '</div><!-- .container --></section><!-- .slogan-wrap -->';
-		}
-	}	
-	echo $blogify_home_slogan;
-}
-endif;
-
+ 
+ 
 
 /****************************************************************************************/
 
@@ -346,6 +309,27 @@ function blogify_breadcrumb() {
 
 }
 endif;
+
+if ( ! function_exists( 'slimpy_call_for_action' ) ) :
+/**
+ * Call for action text and button displayed above content
+ */
+function slimpy_call_for_action() {
+  if ( is_front_page() && of_get_option( 'w2f_cfa_text' )!=''){
+    echo '<div class="cfa">';
+      echo '<div class="container">';
+        echo '<div class="col-sm-8">';
+          echo '<span class="cfa-text">'. of_get_option( 'w2f_cfa_text' ).'</span>';
+          echo '</div>';
+          echo '<div class="col-sm-4">';
+          echo '<a class="btn btn-lg cfa-button" href="'. of_get_option( 'w2f_cfa_link' ). '">'. of_get_option( 'w2f_cfa_button' ). '</a>';
+          echo '</div>';
+      echo '</div>';
+    echo '</div>';
+  }
+}
+endif;
+
 
 /****************************************************************************************/
 

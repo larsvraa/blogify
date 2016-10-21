@@ -37,6 +37,10 @@ if ( ! function_exists( 'blogify_setup' ) ):
 		do_action( 'blogify_add_files' );
 
 
+		// Add Bootstrap default CSS
+		wp_enqueue_style( 'slimpy-bootstrap', get_template_directory_uri() . '/library/css/bootstrap.min.css' );
+  		// Add Bootstrap default JS
+  		wp_enqueue_script('slimpy-bootstrapjs', get_template_directory_uri().'/library/js/bootstrap.min.js', array('jquery') );
 
 
 		/* blogify is now available for translation. */
@@ -53,6 +57,9 @@ if ( ! function_exists( 'blogify_setup' ) ):
 		
 		/** Load Shortcodes */
 		require( get_template_directory() . '/library/functions/shortcodes.php' );
+
+
+		require( get_template_directory() . '/library/functions/jetpack.php' );
 
 		/** Load WP Customizer */
 		require( get_template_directory() . '/library/functions/customizer.php' );
@@ -115,4 +122,26 @@ if ( ! function_exists( 'blogify_setup' ) ):
 	}
 endif; // blogify_setup
 
+/**
+ * Helper function to return the theme option value.
+ * If no value has been saved, it returns $default.
+ * Needed because options are saved as serialized strings.
+ *
+ * Not in a class to support backwards compatibility in themes.
+ */
+if ( ! function_exists( 'of_get_option' ) ) :
+function of_get_option( $name, $default = false ) {
+
+	$option_name = '';
+	// Get option settings from database
+	$options = get_option( 'blogify' );
+
+	// Return specific option
+	if ( isset( $options[$name] ) ) {
+		return $options[$name];
+	}
+
+	return $default;
+}
+endif;
 ?>
